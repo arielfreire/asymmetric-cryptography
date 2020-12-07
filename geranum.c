@@ -4,11 +4,11 @@
 
 #define DECRYPTION_AND_ENCRYPTION_COUNTER 1
 
-void help();
-int isPrime(int number);
 void createPrivateAndPublicKeys(int firstPrime, int secondPrime);
 int getEncryptionNumber(int baseNumber, int coprimesOfBaseNumber);
 int getDecryptionNumber(int baseNumber, int coprimesOfBaseNumber);
+int isPrime(int number);
+void help();
 
 int main(int argc, char const *argv[])
 {
@@ -28,11 +28,6 @@ int main(int argc, char const *argv[])
 	createPrivateAndPublicKeys(firstPrime, secondPrime);
 	printf("Geradas chaves publica <numcripto.txt> e privada <numdescripto.txt.>");
 	return 0;
-}
-
-void help()
-{
-	printf("Uso: geranum <num1> <num2>\n  <num1> - Um numero PRIMO qualquer\n  <num2> - Um numero PRIMO qualquer\n");
 }
 
 void createPrivateAndPublicKeys(int firstPrime, int secondPrime)
@@ -69,6 +64,7 @@ int getEncryptionNumber(int baseNumber, int coprimesOfBaseNumber)
 		}
 	}
 }
+
 int getDecryptionNumber(int encryptionNumber, int coprimesOfBaseNumber)
 {
 	int counter = 0;
@@ -84,6 +80,7 @@ int getDecryptionNumber(int encryptionNumber, int coprimesOfBaseNumber)
 		}
 	}
 }
+
 int isPrime(int number)
 {
 	if (number <= 1)
@@ -98,4 +95,9 @@ int isPrime(int number)
 		}
 	}
 	return 1;
+}
+
+void help()
+{
+	printf("Uso: geranum <num1> <num2>\n  <num1> - Um numero PRIMO qualquer\n  <num2> - Um numero PRIMO qualquer\n");
 }
