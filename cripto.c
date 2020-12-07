@@ -58,7 +58,6 @@ void decryptMessage(char *message)
 }
 void encryptMessage(char *message)
 {
-
 	char encryptionFile[1000];
 	FILE *fptr;
 	if ((fptr = fopen("numcripto.txt", "r")) == NULL)
@@ -85,13 +84,12 @@ void encryptMessage(char *message)
 int getEncryptedChar(int key, int baseNumber, int character)
 {
 	int result = 1;
-	for (int i = 1; i <= 32; i++)
+	for (int i = 32; i >= 0; i--)
 	{
 		int value = (int)pow(2, i);
 		if ((key & value) == value)
 		{
 			result *= modFactor(character, value, baseNumber);
-			printf("Resultado: %d\n", result);
 			continue;
 		}
 	}
