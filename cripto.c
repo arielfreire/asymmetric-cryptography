@@ -41,27 +41,26 @@ void decryptMessage(char *message)
 	FILE *fptr;
 	if ((fptr = fopen("numdescripto.txt", "r")) == NULL)
 	{
-		printf("Erro! Não foram geradas as chaves de encriptacao\n");
+		printf("Erro! Não foram geradas as chaves de criptografia.\n");
 		return;
 	}
+	printf("Descriptografando mensagem...\n");
 	fscanf(fptr, "%[^EOF]", decryptionFile);
 	fclose(fptr);
 	fptr = fopen("saida.txt", "w+");
-	printf("DecriptionFile:%s\n", decryptionFile);
 	char *delimitedFile = strtok(decryptionFile, " ");
 	delimitedFile = strtok(NULL, " ");
 	int decryptionNumber = atoi(delimitedFile);
 	delimitedFile = strtok(NULL, " ");
 	int baseNumber = atoi(delimitedFile);
-	printf("Decryption: %d, Base: %d\n", decryptionNumber, baseNumber);
 	for (int i = 0; i < (sizeof(array)); i++)
 	{
 		if (array[i] == 0)
 			break;
 		fprintf(fptr, "%d ", getEncryptedChar(decryptionNumber, baseNumber, array[i]));
 	}
-
 	fclose(fptr);
+	printf("Mensagem descriptografada.\n");
 }
 void encryptMessage(char *message)
 {
@@ -71,16 +70,16 @@ void encryptMessage(char *message)
 	FILE *fptr;
 	if ((fptr = fopen("numcripto.txt", "r")) == NULL)
 	{
-		printf("Erro! Não foram geradas as chaves de encriptacao\n");
+		printf("Erro! Não foram geradas as chaves de criptografia\n");
 		return;
 	}
+	printf("Criptografando mensagem...\n");
 	fscanf(fptr, "%[^EOF]", encryptionFile);
 	char *delimitedFile = strtok(encryptionFile, " ");
 	delimitedFile = strtok(NULL, " ");
 	int encryptionNumber = atoi(delimitedFile);
 	delimitedFile = strtok(NULL, " ");
 	int baseNumber = atoi(delimitedFile);
-	printf("Key: %d, Base: %d, Message: %s\n", encryptionNumber, baseNumber, message);
 	fclose(fptr);
 	fptr = fopen("saida.txt", "w+");
 
@@ -91,6 +90,7 @@ void encryptMessage(char *message)
 		fprintf(fptr, "%d ", getEncryptedChar(encryptionNumber, baseNumber, array[i]));
 	}
 	fclose(fptr);
+	printf("Mensagem criptografada.\n");
 }
 
 int getEncryptedChar(int key, int baseNumber, int character)

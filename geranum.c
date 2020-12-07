@@ -21,10 +21,12 @@ int main(int argc, char const *argv[])
 	int secondPrime = atoi(argv[2]);
 	if (!isPrime(firstPrime) || !isPrime(secondPrime))
 	{
-		printf("Argumentos invalidos. Os numeros devem ser primos");
+		printf("Argumentos invalidos. Os numeros fornecidos devem ser primos.");
 		return -1;
 	}
+	printf("Criando chaves de criptografia...");
 	createPrivateAndPublicKeys(firstPrime, secondPrime);
+	printf("Geradas chaves publica <numcripto.txt> e privada <numdescripto.txt.>");
 	return 0;
 }
 
@@ -46,7 +48,6 @@ void createPrivateAndPublicKeys(int firstPrime, int secondPrime)
 	fp = fopen("./numdescripto.txt", "w");
 	fprintf(fp, "RSA %d %d", decryptionNumber, baseNumber);
 	fclose(fp);
-	printf("base: %d , encryption: %d, decryption: %d", baseNumber, encryptionNumber, decryptionNumber);
 }
 
 int getEncryptionNumber(int baseNumber, int coprimesOfBaseNumber)
