@@ -8,6 +8,7 @@ void decryptMessage(char *message);
 void encryptMessage(char *message);
 int getEncryptedChar(int key, int base, int c);
 int modFactor(int base, int exp, int mod);
+void getSpaceDelimitedStringArray(char string[], int *array);
 
 int main(int argc, char *argv[])
 {
@@ -34,6 +35,8 @@ int main(int argc, char *argv[])
 }
 void decryptMessage(char *message)
 {
+	int array[1000] = {0};
+	getSpaceDelimitedStringArray(message, array);
 	char decryptionFile[1000];
 	FILE *fptr;
 	if ((fptr = fopen("numdescripto.txt", "r")) == NULL)
@@ -42,22 +45,28 @@ void decryptMessage(char *message)
 		return;
 	}
 	fscanf(fptr, "%[^EOF]", decryptionFile);
+	fclose(fptr);
+	fptr = fopen("saida.txt", "w+");
 	printf("DecriptionFile:%s\n", decryptionFile);
 	char *delimitedFile = strtok(decryptionFile, " ");
 	delimitedFile = strtok(NULL, " ");
 	int decryptionNumber = atoi(delimitedFile);
 	delimitedFile = strtok(NULL, " ");
 	int baseNumber = atoi(delimitedFile);
-	printf("Decryption: %d, Base: %d, Message: %s\n", decryptionNumber, baseNumber, message);
-	for (int i = 0; i < (strlen(message)); i++)
+	printf("Decryption: %d, Base: %d\n", decryptionNumber, baseNumber);
+	for (int i = 0; i < (sizeof(array)); i++)
 	{
-		printf("%d -> %c\n", message[i], message[i]);
+		if (array[i] == 0)
+			break;
+		fprintf(fptr, "%d ", getEncryptedChar(decryptionNumber, baseNumber, array[i]));
 	}
 
 	fclose(fptr);
 }
 void encryptMessage(char *message)
 {
+	int array[1000] = {0};
+	getSpaceDelimitedStringArray(message, array);
 	char encryptionFile[1000];
 	FILE *fptr;
 	if ((fptr = fopen("numcripto.txt", "r")) == NULL)
@@ -74,9 +83,12 @@ void encryptMessage(char *message)
 	printf("Key: %d, Base: %d, Message: %s\n", encryptionNumber, baseNumber, message);
 	fclose(fptr);
 	fptr = fopen("saida.txt", "w+");
-	for (int i = 0; i < (strlen(message)); i++)
+
+	for (int i = 0; i < (sizeof(array)); i++)
 	{
-		fprintf(fptr, "%d ", getEncryptedChar(encryptionNumber, baseNumber, message[i]));
+		if (array[i] == 0)
+			break;
+		fprintf(fptr, "%d ", getEncryptedChar(encryptionNumber, baseNumber, array[i]));
 	}
 	fclose(fptr);
 }
@@ -94,6 +106,17 @@ int getEncryptedChar(int key, int baseNumber, int character)
 		}
 	}
 	return result % baseNumber;
+}
+void getSpaceDelimitedStringArray(char string[], int *array)
+{
+	int i = 0;
+	char *delimitedFile = strtok(string, " ");
+	while (delimitedFile != NULL)
+	{
+		array[i] = atoi(delimitedFile);
+		i++;
+		delimitedFile = strtok(NULL, " ");
+	}
 }
 int modFactor(int base, int exp, int mod)
 {
