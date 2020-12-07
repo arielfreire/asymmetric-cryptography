@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define DECRYPTION_NUMBERT_COUNTER 2
+#define DECRYPTION_AND_ENCRYPTION_COUNTER 1
 
 void help();
 int isPrime(int number);
@@ -51,7 +51,7 @@ void createPrivateAndPublicKeys(int firstPrime, int secondPrime)
 
 int getEncryptionNumber(int baseNumber, int coprimesOfBaseNumber)
 {
-	int encryptionNumber = 0;
+	int counter = 0;
 	for (int i = 2; i < baseNumber; i++)
 	{
 		if (baseNumber % i == 0 || coprimesOfBaseNumber % i == 0)
@@ -60,10 +60,13 @@ int getEncryptionNumber(int baseNumber, int coprimesOfBaseNumber)
 		}
 		if (i > 1 && i < coprimesOfBaseNumber)
 		{
-			encryptionNumber = i;
+			counter++;
+			if (counter == DECRYPTION_AND_ENCRYPTION_COUNTER)
+			{
+				return i;
+			}
 		}
 	}
-	return encryptionNumber;
 }
 int getDecryptionNumber(int encryptionNumber, int coprimesOfBaseNumber)
 {
@@ -73,7 +76,7 @@ int getDecryptionNumber(int encryptionNumber, int coprimesOfBaseNumber)
 		if ((i * encryptionNumber) % coprimesOfBaseNumber == 1)
 		{
 			counter++;
-			if (counter == DECRYPTION_NUMBERT_COUNTER)
+			if (counter == DECRYPTION_AND_ENCRYPTION_COUNTER)
 			{
 				return i;
 			}
