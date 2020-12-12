@@ -21,12 +21,12 @@ int main(int argc, char const *argv[])
 	int secondPrime = atoi(argv[2]);
 	if (!isPrime(firstPrime) || !isPrime(secondPrime))
 	{
-		printf("Argumentos invalidos. Os numeros fornecidos devem ser primos.");
+		printf("Argumentos invalidos. Os numeros fornecidos devem ser primos.\n");
 		return -1;
 	}
-	printf("Criando chaves de criptografia...");
+	printf("Criando chaves de criptografia...\n");
 	createPrivateAndPublicKeys(firstPrime, secondPrime);
-	printf("Geradas chaves publica <numcripto.txt> e privada <numdescripto.txt.>");
+	printf("Geradas chaves publica <numcripto.txt> e privada <numdescripto.txt.>\n");
 	return 0;
 }
 
@@ -63,6 +63,7 @@ int getEncryptionNumber(int baseNumber, int coprimesOfBaseNumber)
 			}
 		}
 	}
+	return 0;
 }
 
 int getDecryptionNumber(int encryptionNumber, int coprimesOfBaseNumber)
