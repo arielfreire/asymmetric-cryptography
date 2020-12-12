@@ -127,5 +127,5 @@ void getSpaceDelimitedArray(char string[], int *array)
 
 void help()
 {
-	printf("Uso: cripto [opcoes] <mensagem>\nOpcoes:\n  -d\tDesencriptar a mensagem\n  -c\tEncriptar a mensagem\n");
+	printf("Uso: cripto [opcoes] <mensagem>\nOpcoes:\n  -d\tDescriptografa a mensagem\n  -c\tCriptografa a mensagem\n");
 }
