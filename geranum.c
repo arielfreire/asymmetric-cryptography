@@ -1,5 +1,6 @@
 #include <math.h>
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 
 #define DECRYPTION_AND_ENCRYPTION_COUNTER 1
@@ -12,13 +13,29 @@ void help();
 
 int main(int argc, char const *argv[])
 {
-	if (argc < 3)
+	int firstPrime = 0;
+	int secondPrime = 0;
+	if( argc == 2 && (!strcmp(argv[1], "-h") ||!strcmp(argv[1], "--help")))
 	{
 		help();
-		return -1;
+		return 0;
 	}
-	int firstPrime = atoi(argv[1]);
-	int secondPrime = atoi(argv[2]);
+	if (argc < 3)
+	{
+		char firstInput[255] = {0};
+		char secondInput[255] = {0};
+		printf("Digite o primeiro primo: ");
+		scanf("%s", firstInput);
+		printf("Digite o segundo primo: ");
+		scanf("%s", secondInput);
+		firstPrime = atoi(firstInput);
+		secondPrime = atoi(secondInput);
+	}
+	else
+	{
+		firstPrime = atoi(argv[1]);
+		secondPrime = atoi(argv[2]);
+	}
 	if (!isPrime(firstPrime) || !isPrime(secondPrime))
 	{
 		printf("Argumentos invalidos. Os numeros fornecidos devem ser primos.\n");
