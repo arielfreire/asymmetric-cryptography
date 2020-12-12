@@ -1,3 +1,4 @@
+![C/C++ CI](https://github.com/arielfreire/asymmetric-cryptography/workflows/C/C++%20CI/badge.svg)
 # Estudo de Criptografia Assimetrica
 
 Trabalho da cadeira de Laboratório de Programação UERJ 2020.1
