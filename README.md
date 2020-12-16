@@ -22,9 +22,11 @@ Como resposta serão gerados dois arquivos contendo a chave pública (numcripto.
 
 ### cripto
 
-O programa **cripto** recebe duas oções:
+O programa **cripto** pode receber duas oções:
 - '-d' Descriptografa a mensagem fornecida como entrada.
 - '-c' Criptografa a mensagem fornecida como entrada.
 **Obs.:** Para que o programa possa ser executado, é necessário ter gerado antes as chaves de criptografia através de **geranum**
 Ex:
-`./cripto -c "67 101 108 97 99 97 110 116 111"`
+`./cripto -c < mensagem.txt > saida.crp`
+
+`./cripto -d < saida.crp > saida.txt`
