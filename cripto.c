@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+#define MAX_BUFFER_SIZE 10000
 void encryptMessage(char *message);
 void decryptMessage(char *message);
 void getSpaceDelimitedArray(char string[], int *array);
@@ -12,18 +13,20 @@ void help();
 
 int main(int argc, char *argv[])
 {
-	if (argc < 3)
+	if (argc < 2)
 	{
 		help();
 		return -1;
 	}
+	char buffer[MAX_BUFFER_SIZE] = {0};
+	fscanf(stdin, "%[^EOF]", buffer);
 	if (!strcmp(argv[1], "-c"))
 	{
-		encryptMessage(argv[2]);
+		encryptMessage(buffer);
 	}
 	else if (!strcmp(argv[1], "-d"))
 	{
-		decryptMessage(argv[2]);
+		decryptMessage(buffer);
 	}
 	else
 	{
@@ -36,9 +39,7 @@ int main(int argc, char *argv[])
 
 void encryptMessage(char *message)
 {
-	int array[1000] = {0};
-	getSpaceDelimitedArray(message, array);
-	char encryptionFile[1000];
+	char encryptionFile[MAX_BUFFER_SIZE];
 	FILE *fptr;
 	if ((fptr = fopen("numcripto.txt", "r")) == NULL)
 	{
@@ -52,13 +53,12 @@ void encryptMessage(char *message)
 	delimitedFile = strtok(NULL, " ");
 	int baseNumber = atoi(delimitedFile);
 	fclose(fptr);
-	for (int i = 0; i < (sizeof(array)); i++)
+	for (int i = 0; i < MAX_BUFFER_SIZE; i++)
 	{
-		if (array[i] == 0)
+		if (message[i] == 0)
 			break;
-		printf("%d ",getEncryptedCharacter(encryptionNumber, baseNumber, array[i]));
+		printf("%d ", getEncryptedCharacter(encryptionNumber, baseNumber, message[i]));
 	}
-	printf("\n");
 	return;
 }
 
@@ -84,7 +84,7 @@ void decryptMessage(char *message)
 	{
 		if (array[i] == 0)
 			break;
-		printf("%d ", getEncryptedCharacter(decryptionNumber, baseNumber, array[i]));
+		printf("%c", getEncryptedCharacter(decryptionNumber, baseNumber, array[i]));
 	}
 	printf("\n");
 }
